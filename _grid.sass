@@ -6,26 +6,32 @@ $fullhd: "only screen and(min-width: 1408px)"
 
 $columns: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
-@each $column in $columns
-    .have-#{$column}
-        grid-template: 1fr / repeat(#{$column, 1fr})
-
-.container
-    margin: 0 auto
-    height: auto
-    position: relative
-    &.is-fluid
-        max-width: none !important
-        margin: 0 0.75rem
-
 .is-grid
     display: grid
     grid-gap: 0.75rem
+@each $column in $columns
+    .have-#{$column}
+        grid-template: 1fr / 1fr
+
+.container
+    margin: 0 0.75rem
+
+@media #{$tablet}
+    .is-grid
+        @each $column in $columns
+            &.have-#{$column}
+                grid-template: 1fr / repeat(#{$column, 1fr})
 
 @media #{$desktop}
     .container
+        margin: 0 auto
+        height: auto
+        position: relative
         max-width: 960px
-
+        &.is-fluid
+            max-width: none !important
+            margin: 0 0.75rem
+    
 @media #{$wide}
     .container
         max-width: 1152px
@@ -33,10 +39,3 @@ $columns: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 @media #{$fullhd}
     .container
         max-width: 1344px
-
-@media #{$mobile}
-    .container
-        margin: 0 0.75rem
-    @each $column in $columns
-        .have-#{$column}
-            grid-template: 1fr / 1fr
